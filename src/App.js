@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import FormSection from './components/Form/FormSection'
+import { useState } from 'react'
+import UsersSection from './components/Users/UsersSection'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const [users, setUsers] = useState([
+    { id: '1', username: 'Nader', age: '26' },
+  ])
 
-export default App;
+  const addUser = (user) => {
+    user.id = Math.max(...users.map((u) => u.id)) + 1
+    setUsers((prevState) => [...prevState, user])
+  }
+  return (
+    <>
+      <FormSection addUser={addUser} />
+      <UsersSection users={users} />
+    </>
+  )
+}
+export default App
